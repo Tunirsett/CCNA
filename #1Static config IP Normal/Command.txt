@@ -1,0 +1,61 @@
+To input IP in a Interface
+
+Router1(config)#int f0/0 or G0/0
+
+Router1(config-if)#ip add 192.168.10.1 255.255.255.0
+Router1(config-if)#no shut
+
+To input IP in a Interface
+
+Router1(config)#int f0/1 or G0/1
+
+Router1(config-if)#ip add 192.168.20.1 255.255.255.0
+Router1(config-if)#no shut
+
+To change router name
+Router(config)#hostname Router1
+
+To put enable password
+Router1(config)#enable password 123
+
+To put secret password
+Router1(config)#enable secret 1234
+
+To show Interface and IP
+Router#sh ip int bri
+
+To show configuration in ram (Ongoing)
+Router1#sh running-config
+
+To show configuration in NV-ram (SAVE)
+Router1#show startup-config 
+
+Copy configuration file Ram to NVram
+Router1#copy running-config startup-config
+Router1#write
+Complted....
+-----------------------------------------------------------------------------------------------------------------
+Another Commend..
+To put password in Console and Aux port
+Router1(config)#line console 0
+Router1(config-line)#pass 12345
+Router1(config-line)#line aux 0
+Router1(config-line)#pass 123456
+
+Router Password Break
+press ctrl+pause/break or ctrl+c while router rebooting
+rommon 1 > confreg 0x2142
+rommon 2 > reset
+
+Router(config)#enable secret 12345678
+Router(config)#config-register 0x2102
+
+Copy configuration file NVram to Ram
+Router1#copy startup-config running-config
+Router1#write
+
+Router1(config)# service password-encryption
+(Any password Encrypted)
+
+Router1(config)#no ip domain lookup
+(Bad commend Search STOP in CLI)
