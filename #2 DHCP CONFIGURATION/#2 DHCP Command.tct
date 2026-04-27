@@ -1,0 +1,22 @@
+R1(config)#int f0/0
+R1(config-if)#ip add 192.168. 10.1 255.255.255.0
+R1(config-if)#no shutdown
+Exclusion Router IP from DHCP Server
+R1(config)#ip dhcp excluded-address 192.168.10.1
+
+Exclusion IP range from DHCP Server
+
+R1(config)# ip dhcp pool left_side
+R1(dhcp-config)#network 192.168.10.0 255.255.255.0
+R1(dhcp-config)#default-router 192.168.10.1
+R1(dhcp-config)#dns-server 192.168.10.1
+----------------------------------------------------------------
+R1(config-if)#int f0/1
+R1(config-if)#ip add 192.168.20.1 255.255.255.0
+R1(config-if)#no shutdown
+
+R1(config)#ip dhcp excluded-address 192.168.20.1 192.168.20.10
+R1(config)#ip dhcp pool right_side
+R1(dhcp-config)#network 192.168.20.0 255.255.255.0
+R1(dhcp-config)#default-router 192.168.20.1
+R1(dhcp-config)#dns-server 192.168.20.1
