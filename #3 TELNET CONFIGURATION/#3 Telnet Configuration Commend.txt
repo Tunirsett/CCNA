@@ -1,0 +1,13 @@
+Telnet Configuration
+Router1(config)#enable secret 1234
+Router1(config)#line vty 0 4
+Router1(config-line)#password 1234
+Router1(config-line)#transport input telnet
+Router1(config-line)#exec-yimeout 0 (> Means 1 minit)
+Router1(config-line)#loggin Synchnonous
+Router1(config-line)#login
+Router1(config-line)#exit
+
+Access PC-telnet 192.168.10.1
+-- give telnet password
+- give router password
