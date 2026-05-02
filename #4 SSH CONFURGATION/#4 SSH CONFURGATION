@@ -1,0 +1,20 @@
+Interface IP add G0/0+g0/1
+DHCP all PCs
+SSH CONFURGATION
+Router(config)#hostname R1
+Router(config)#enable secret 1234
+Router(config)#username abc secret 0000
+R1(config)#ip domain-name abc.com
+R1(config)#crypto key generate rsa
+General Purpose Keys. Choosing a key modulus greater than 512 may take
+a few minutes.
+How many bits in the modulus [512]: 1024
+
+R1(config)#line vty 0 4
+R1(config-line)#transport input ssh
+R1(config-line)#login local
+R1(config-line)#logging synchronous
+R1(config-line)#exec-timeout 0
+
+Access from PC
+PC>ssh -L abc 192.168.10.1
