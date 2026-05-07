@@ -1,0 +1,37 @@
+#6 Default Static Command.txt
+
+
+Router>en
+Router#conf t
+Router(config)#hostname LOCAL
+LOCAL(config)#int s0/1/0
+LOCAL(config-if)#ip add 100.0.0.2 255.255.255.252
+LOCAL(config-if)#no shut
+LOCAL(config-if)#int g0/0
+LOCAL(config-if)#ip add 192.168.10.1 255.255.255.0
+LOCAL(config-if)#no shut
+LOCAL(config)#ip route 0.0.0.0 0.0.0.0 100.0.0.1
+LOCAL(config)#end/exit
+LOCAL#write
+
+---------------------------------------------------------------------------------------------
+Router(config)#hostname ISP
+ISP(config)#int s0/3/0
+ISP(config-if)#clock rate 64000
+ISP(config-if)#ip add 100.0.0.1 255.255.255.252
+ISP(config-if)#no sh
+ISP(config-if)#int f0/0
+ISP(config-if)#ip add 10.0.0.1 255.255.255.0
+ISP(config-if)#no sh
+ISP(config-if)#int f0/1
+ISP(config-if)#ip add 11.0.0.1 255.255.255.0
+ISP(config-if)#no sh
+ISP(config-if)#int e1/0
+ISP(config-if)#ip add 12.0.0.1 255.255.255.0
+ISP(config-if)#no sh
+ISP(config-if)#int e1/1
+ISP(config-if)#ip add 13.0.0.1 255.255.255.0
+ISP(config-if)#no sh
+ISP(config)#ip route 192.168.10.0 255.255.255.0 100.0.0.2
+ISP(config)#end/exit
+ISP#write
