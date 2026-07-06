@@ -1,1 +1,75 @@
 
+Enterprice Network+OSPF
+
+VLAN-10 Name-HR
+192.168.10.0/26
+
+VLAN-20-Acctounts
+192.168.10.64/26
+
+VLAN-30 - Security
+192.168.10.128/26
+
+VLAN-40 Name- Sales
+192.168.10.192/26
+
+
+Router>enable
+Router#conft
+Router(config)#interface gigabitethernet 0/0
+Router(config-if)#ip address 10.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+Router(config-if)#interface gigabitethernet 0/1
+Router(config-if)#ip address 20.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+Router(config-if)#end
+Router#Write
+
+All L2 Switch Same Camand
+
+Switch4>enable
+Switch4#configure terminal
+Switch4(config)#interface range fastethernet0/1-2
+Switch4(config-if-range)#switchport mode access
+Switch4(config-if-range)#switchport access vlan 40
+
+Switch4(config)#interface range fastEthernet 0/3-4
+Switch4(config-if-range)#switchport mode trunk
+
+Switch4(config-if-range)#end
+Switch#write
+
+
+All MLS Camand Same
+
+MLS2>enable
+MLS2#configure terminal
+MLS2(config)#ip routing (This cmd .. for IP Network)
+MLS2(config)#vlan 10
+MLS2(config-vlan)#vlan 20
+MLS2(config-vlan)#vlan 30
+MLS2(config-vlan)#vlan 40
+MLS2(config-vlan)#exit
+MLS2(config)#interface vlan 10
+MLS2(config-if)#ip address 192.168.10.1 255.255.255.192
+MLS2(config-if)#interface vlan 20
+MLS2(config-if)#ip address 192.168.10.65 255.255.255.192
+MLS2(config-if)#interface vlan 30
+MLS2(config-if)#ip address 192.168.10.129 255.255.255.192
+MLS2(config-if)#interface vlan 30
+MLS2(config-if)#ip address 192.168.10.129 255.255.255.192
+MLS2(config-if)#interface vlan 40
+MLS2(config-if)#ip address 192.168.10.193 255.255.255.192
+MLS2(config-if)#exit
+MLS2(config)#interface range f0/2-5
+MLS2(config-if-range)#switchport trunk encapsulation dot1q (Manully)
+MLS2(config-if-range)#switchport mode trunk
+MLS2(config-if)#interface fa0/1
+MLS2(config-if)#no switchport
+MLS2(config-if)#ip address 20.0.0.2 255.0.0.0
+MLS2(config-if)#no shut
+MLS2(config)#router ospf 1
+Switch(config-router)#net 20.0.0.0 0.255.255.255 area 0
+Switch(config-router)#net 192.168.10.0 0.0.0.63 area 0
+MLS2(config-router)#end
+MLS2#Write
