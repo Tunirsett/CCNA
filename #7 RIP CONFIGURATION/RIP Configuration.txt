@@ -1,0 +1,54 @@
+RIP Configuration.txt
+
+
+R1(config)#int s0/1/0
+R1(config-if)#ip add 10.0.0.1 255.0.0.0
+R1(config-if)#clock rate 64000
+R1(config-if)#no shutdown
+R1(config-if)#int g0/1
+R1(config-if)#ip add 1.0.0.1 255.0.0.0
+R1(config-if)#no shut
+R1(config-if)#exit
+R1(config)#router rip
+R1(config-router)#version 2
+R1(config-router)#no auto-summary
+R1(config-router)#network 10.0.0.0
+R1(config-router)#network 1.0.0.0
+R1(config-router)#end
+R1#write
+
+
+R2(config)#int s0/3/0
+R2(config-if)#ip add 10.0.0.2 255.0.0.0
+R2(config-if)#no shutdown
+R2(config-if)#int f0/1
+R2(config-if)#ip add 2.0.0.1 255.0.0.0
+R2(config-if)#no shut
+R2(config-if)#exit
+R2(config)#router rip
+R2(config-router)#version 2
+R2(config-router)#no auto-summary
+R2(config-router)#network 10.0.0.0
+R2(config-router)#network 2.0.0.0
+R2(config-router)#end
+R2#write
+
+For verification
+R1#sh ip route
+
+To show RIP database
+R1#sh ip rip database
+
+To show which protocol running
+R1#sh ip protocols
+
+To change RIP timers and AD value
+R1(config)#router rip
+R1(config-router)#timers basic 20 150 150 200
+R1(config-router)#distance 100
+
+To start RIP Debugging
+R2#debug ip rip
+
+To stop Debugging
+R2#undebug all
