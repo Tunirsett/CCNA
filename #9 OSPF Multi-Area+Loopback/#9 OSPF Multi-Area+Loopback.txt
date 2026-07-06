@@ -1,0 +1,87 @@
+1st Configuer Area=0 Backbone Router 0
+Then Config No. wise / Router-id
+
+All Serial Port IP Set in R0
+Then OSPF ON 4-Network
+
+R0(config)#interface Serial0/0/0
+R0(config-if)#ip address 10.0.0.10 255.255.255.252
+R0(config-if)#interface Serial0/0/1
+R0(config-if)#ip address 10.0.0.6 255.255.255.252
+R0(config-if)#interface Serial0/1/0
+R0(config-if)#ip address 10.0.0.2 255.255.255.252
+R0(config-if)#interface Serial0/1/1
+R0(config-if)#ip address 10.0.0.14 255.255.255.252
+
+R0(config)#router ospf 1
+R0(config-router)#router-id 1.1.1.1
+network 10.0.0.0 0.0.0.3 area 0
+network 10.0.0.8 0.0.0.3 area 0
+network 10.0.0.12 0.0.0.3 area 0
+network 10.0.0.4 0.0.0.3 area 0
+
+
+2nd
+R1(config)#interface Serial0/1/0
+R1(config-if)#ip address 10.0.0.1 255.255.255.252
+R1(config-if)#clock rate 64000
+R1(config-if)#no shutdown
+R1(config)#interface G0/0
+R1(config-if)#ip address 192.168.10.1 255.255.255.128
+R1(config-if)#no shutdown
+
+R1(config)#router ospf 2
+R1(config-router)#router-id 2.2.2.2
+network 192.168.10.0 0.0.0.127 area 1
+network 10.0.0.0 0.0.0.3 area 0
+R1#Write
+
+3rd
+R3(config)#interface Serial0/1/0
+R3(config-if)#ip address 10.0.0.9 255.255.255.252
+R3(config-if)#clock rate 64000
+R3(config-if)#no shutdown
+R3(config-if)#interface Loopback 0
+R3(config-if)#ip address 100.100.100.100 255.255,255.255
+R3(config-if)#interface Loopback 2
+R3(config-if)#ip address 101.101.101.101 255.255.255.255
+
+R3(config)#router ospf 3
+R3(config-router)#router-id 3.3.3.3
+R3(config-router)#network 10.0.0.8 0.0.0.3 area 0
+R3(config-router)#network 100.100.100.100 0.0.0.0 area 1
+R3(config-router)#network 101.101.101.101 0.0.0.0 area 1
+R3#Write
+
+4th
+R4(config)#interface Serial0/1/0
+R4(config-if)#ip address 10.0.0.13 255.255.255.252
+R4(config-if)#clock rate 64000
+R4(config-if)#no shutdown
+R4(config-if)#interface Loopback 0
+R4(config-if)#ip address 200.200.200.200 255.255.255.255
+R4(config-if)#interface Loopback 2
+R4(config-if)#ip address 201.201.201.201 255.255.255.255
+
+R4(config)#router ospf 4
+R4(config-router)#router-id 4.4.4.4
+R4(config-router)#network 10.0.0.12 0.0.0.3 area 0
+R4(config-router)#network 201.201.201.201 0.0.0.0 area 2
+R4(config-router)#network 200.200.200.200 0.0.0.0 area 2
+R3#Write
+
+
+5th
+R5(config)#interface Serial0/1/0
+R5(config-if)#ip address 10.0.0.5 255.255.255.252
+R5(config-if)#clock rate 64000
+R5(config-if)#no shutdown
+R5(config-if)#interface G0/0
+R5(config-if)#ip address 192.168.10.129 255.255.255.128
+
+R5(config)#router ospf 5
+R5(config-router)#router-id 5.5.5.5
+R5(config-router)#network 10.0.0.4 0.0.0.3 area 0
+R5(config-router)#network 192.168.10.128 0.0.0.127 area 2
+R5#Write
+
