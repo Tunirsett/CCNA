@@ -1,0 +1,30 @@
+EIGRP CONFIGURATION
+
+R1(config)#router eigrp 10
+R1(config-router)#network 10.0.0.0
+R1(config-router)#network 1.0.0.0
+R1(config-router)#no auto-summary
+R1(config-router)#exit/end
+R1(config)#Write
+
+R2(config)#router eigrp 10
+R2(config-router)#network 10.0.0.0
+R2(config-router)#network 2.0.0.0
+R2(config-router)#no auto-summary
+R2(config-router)#exit/end
+R2(config)#Write
+
+To show routing table
+R1#sh ip route
+
+To show eigrp route
+R1#sh ip route eigrp
+
+To show eigrp topology table
+R1#sh ip eigrp topology
+
+To show eigtp neighbour table
+R1#sh ip eigrp neighbors
+
+To show interface details
+R1#sh int s0/0/0
